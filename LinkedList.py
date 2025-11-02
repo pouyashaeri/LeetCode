@@ -26,9 +26,25 @@ class LinkedList:
             current = current.next
         print("None")
 
+    def reverse(self):
+        prev = None
+        current = self.head
+        while current:
+            nxt = current.next     # temporarily save next node
+            current.next = prev    # reverse the link
+            prev = current         # move prev forward
+            current = nxt          # move current forward
+        self.head = prev           # update head to last node
+
 # Examples:
 ll = LinkedList()
 ll.append(10)
 ll.append(20)
 ll.append(30)
+
+print("The created Linked list:")
+ll.display()
+
+ll.reverse()
+print("Reversed list:")
 ll.display()
