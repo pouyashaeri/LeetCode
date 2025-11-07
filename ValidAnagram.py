@@ -1,11 +1,15 @@
 class Solution:
-
-    def sortString(self, s):
-        return ''.join(sorted(s))
-
     def isAnagram(self, s: str, t: str) -> bool:
-        s = self.sortString(s)
-        t = self.sortString(t)
-        if s == t:
-            return True
-        return False
+        if len(s) != len(t):
+            return False
+        
+        countsS = {}
+        countsT = {}
+
+        for ch in s:
+            countsS[ch] = countsS.get(ch, 0) + 1
+
+        for ch in t:
+            countsT[ch] = countsT.get(ch, 0) + 1
+
+        return countsS == countsT
