@@ -2,14 +2,18 @@ from typing import List
 
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        # ex_in: [1,5,3,1,2,3,2,2,3,4,6,6,6], k = 3
-        # ex_out: [6,3,2]
-        counts = {}
+        count = {}
+        freq = [[] for _ in range(len(nums) + 1)]
+
         for num in nums:
-            counts[num] = counts.get(num, 0) + 1
-        top_k = []
-        for _ in range(k):
-            key_max = max(counts, key=counts.get)
-            max_value = counts.pop(key_max)
-            top_k.append(key_max)
-        return top_k
+            count[num] = count.get(num, 0) + 1
+
+        for num, cnt in count.items():
+            freq[cnt].append(num)
+
+        res = []
+        for i in range(len(freq) - 1, 0, -1):
+            for j in freq[i]:
+                res.append(j)
+                if len(res) == k:
+                    return res
