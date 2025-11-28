@@ -1,18 +1,16 @@
 from typing import List
+
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        current_dists = [0] * len(temperatures)
+        result = [0]*len(temperatures)
+        stack = []
+        for today in range(len(temperatures)):
+            today_temp = temperatures[today]
 
-        for i, t in enumerate(temperatures):
-            if i + 1 < len(temperatures):
-                right_index = i + 1
-                while t >= temperatures[right_index]:
-                    if right_index + 1 < len(temperatures):
-                        right_index = right_index + 1 
-                    else:
-                        break
-                if t < temperatures[right_index] and right_index < len(temperatures):
-                    current_dists[i] = right_index - i
-            # print(f"current_dists: {current_dists}")
+            while stack and today_temp > temperatures[stack[-1]]:
+                previous_day = stack.pop()
+                result[previous_day] = today - previous_day
+            
+            stack.append(today)
         
-        return current_dists
+        return result
