@@ -18,8 +18,7 @@ class Solution:
             r, c = queue.popleft()
 
             for dr, dc in directions:
-                nr = r + dr
-                nc = c + dc
+                nr, nc = r + dr, c + dc
                 if 0 <= nr < m and 0 <= nc < n and image[nr][nc] == original:
                     image[nr][nc] = color
                     queue.append((nr, nc))
