@@ -2,14 +2,9 @@ from typing import List
 
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
-        i = len(digits) - 1
-
-        while i >= 0:
-            if digits[i] < 9:
-                digits[i] += 1
+        for d in range(len(digits)-1, -1, -1):
+            if digits[d] < 9:
+                digits[d] += 1
                 return digits
-            else:
-                digits[i] = 0
-            i -= 1
-
+            digits[d] = 0
         return [1] + digits
