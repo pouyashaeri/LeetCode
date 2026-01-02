@@ -9,7 +9,7 @@ class Solution:
             if x >= k:
                 dup =0
             else:
-                dup = (k - x + x - 1) // x
+                dup = (k - 1) // x
             ops = inc + dup
             if ops < best:
                 best = ops
