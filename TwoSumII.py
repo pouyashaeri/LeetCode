@@ -1,38 +1,22 @@
 from typing import List
 
-
 class Solution:
     
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         
-        # # Strategy 1
+        # # Brute-force O(n^2)
         # for i in range(len(numbers)):
-        #     for j in range(len(numbers)):
-        #         if i!=j and numbers[i] + numbers[j] == target:
-        #             results.append(i+1)
-        #             results.append(j+1)
-        #             return results
+        #     for j in range(i+1, len(numbers)):  # no need to check j < i
+        #         if numbers[i] + numbers[j] == target:
+        #             return [i+1, j+1]
 
-        # # Strategy 2
-        j = len(numbers) - 1
-    
-        for i in range(len(numbers)):
-            while i < j and numbers[i] + numbers[j] > target:
-                j -= 1
-            if i < j and numbers[i] + numbers[j] == target:
-                return [i + 1, j + 1]
 
-                if j < len(numbers) - 1:
-                    j += 1
-
-        # # Strategy 3
-        # i = 0 
-        # j = len(numbers) - 1
-
-        # while i < j:
-        #     if numbers[i] + numbers[j] < target:
-        #         i+=1
-        #     if numbers[i] + numbers[j] > target:
-        #         j-=1
-        #     if numbers[i] + numbers[j] == target:
-        #         return [i+1,j+1]
+        # # Use the "Non-decreasing" property of the problem
+        l, r = 0, len(numbers) - 1
+        while l < r:
+            if numbers[l] + numbers[r] > target:
+                r -= 1
+            if numbers[l] + numbers[r] < target:
+                l += 1
+            if numbers[l] + numbers[r] == target:
+                return [l + 1, r + 1]
