@@ -2,37 +2,30 @@ from typing import List
 
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        flag = True
-        # Check rows
-        for i in range(9):
-            count = {}
-            for j in range(9):
-                if board[i][j] != ".":
-                    count[board[i][j]] = count.get(board[i][j], 0) + 1
-            for cnt in list(count.values()):
-                if cnt != 1:
-                    flag = False
+        rows = [set() for _ in range(9)]
+        cols = [set() for _ in range(9)]
+        boxes = [set() for _ in range(9)]
+        
+        # 0 | 1 | 2
+        #-----------
+        # 3 | 4 | 5
+        #-----------
+        # 6 | 7 | 8
 
-        # Check cols
-        for i in range(9):
-            count = {}
-            for j in range(9):
-                if board[j][i] != ".":
-                    count[board[j][i]] = count.get(board[j][i], 0) + 1
-            for cnt in list(count.values()):
-                if cnt != 1:
-                    flag = False
+        for r in range(9):
+            for c in range(9):
+                val = board[r][c]
 
-        # Check sub-grid
-        for k in [0, 3, 6]:
-            for m in [0, 3, 6]:
-                count = {}
-                for i in range(3):          # i = [0, 1, 2]
-                    for j in range(3):      # j = [0, 1, 2] 
-                        if board[i+k][j+m] != ".":
-                            count[board[i+k][j+m]] = count.get(board[i+k][j+m], 0) + 1
-                for cnt in list(count.values()):
-                    if cnt != 1:
-                        flag = False
+                if val == ".":
+                    continue
+                
+                box = (r // 3) * 3 + (c // 3)
 
-        return flag
+                if val in rows[r] or val in cols[c] or val in boxes[box]:
+                    return False
+
+                rows[r].add(val)
+                cols[c].add(val)
+                boxes[box].add(val)
+
+        return True
