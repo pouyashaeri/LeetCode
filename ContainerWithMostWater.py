@@ -2,15 +2,12 @@ from typing import List
 
 class Solution:
     def maxArea(self, heights: List[int]) -> int:
-        left = 0
-        right = len(heights) - 1
-        max_area = 0
-        while (left < right):
-            height = min(heights[left], heights[right])
-            width = right - left
-            max_area = max(max_area, height * width)
-            if (heights[left] < heights[right]):
+        left, right = 0, len(heights) - 1
+        max_amount = 0
+        while left < right:
+            max_amount = max(max_amount, min(heights[left], heights[right]) * (right - left))
+            if heights[left] < heights[right]:
                 left += 1
-            else:
+            elif heights[left] >= heights[right]:
                 right -= 1
-        return max_area
+        return max_amount
