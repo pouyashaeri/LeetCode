@@ -8,15 +8,12 @@ class Solution:
 
         for ch in s1:
             count_s1[ord(ch) - ord('a')] += 1
-        
-        left = 0
-        right = len(s1)
 
         for i in range(len(s2)):
             count_window[ord(s2[i]) - ord('a')] += 1
             if i >= len(s1):
-                count_window[ord(s2[i-len(s1)]) - ord('a')] -= 1
+                count_window[ord(s2[i - len(s1)]) - ord('a')] -= 1
             if count_window == count_s1:
                 return True
-
+        
         return False
