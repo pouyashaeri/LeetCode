@@ -3,19 +3,20 @@ from typing import List
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
         stack = []
-        for t in tokens:
-            print(f"stack: {stack}")
-            if t in '+-*/':
+
+        for token in tokens:
+            if token not in "+-*/":
+                stack.append(int(token))
+            else:
                 b = stack.pop()
                 a = stack.pop()
-                if t == '+':
+                if token == "+":
                     stack.append(a + b)
-                elif t == '-':
+                elif token == "-":
                     stack.append(a - b)
-                elif t == '*':
+                elif token == "*":
                     stack.append(a * b)
-                elif t == '/':
+                elif token == "/": 
                     stack.append(int(a / b))
-            else:
-                stack.append(int(t))
-        return stack[0]
+
+        return stack.pop()
